@@ -19,6 +19,7 @@ local parser = {
   ["_0x"] = argb_hex_parser,
   ["_rgb"] = rgb_function_parser,
   ["_rgba"] = rgb_function_parser,
+  ["_Color"] = rgb_function_parser,
   ["_hsl"] = hsl_function_parser,
   ["_hsla"] = hsl_function_parser,
 }

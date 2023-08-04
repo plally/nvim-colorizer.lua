@@ -2,6 +2,7 @@
 local count = require("colorizer.utils").count
 
 local parser = {}
+local COLOR_FN_MINIMUM_LENGTH = #"Color(0,0,0)" - 1
 local CSS_RGBA_FN_MINIMUM_LENGTH = #"rgba(0,0,0)" - 1
 local CSS_RGB_FN_MINIMUM_LENGTH = #"rgb(0,0,0)" - 1
 ---Parse for rgb() rgba() css function and return rgb hex.
@@ -12,12 +13,15 @@ local CSS_RGB_FN_MINIMUM_LENGTH = #"rgb(0,0,0)" - 1
 ---@return number|nil: Index of line where the rgb/rgba function ended
 ---@return string|nil: rgb hex value
 function parser.rgb_function_parser(line, i, opts)
-  local min_len = CSS_RGBA_FN_MINIMUM_LENGTH
+  local min_len = COLOR_FN_MINIMUM_LENGTH
   local min_commas, min_spaces, min_percent = 2, 2, 3
   local pattern = "^"
     .. opts.prefix
     .. "%(%s*([.%d]+)([%%]?)(%s?)%s*(,?)%s*([.%d]+)([%%]?)(%s?)%s*(,?)%s*([.%d]+)([%%]?)%s*(/?,?)%s*([.%d]*)([%%]?)%s*%)()"
-
+    
+  if opts.prefix == "rgba" then
+    min_len = CSS_RGBA_FN_MINIMUM_LENGTH
+  end
   if opts.prefix == "rgb" then
     min_len = CSS_RGB_FN_MINIMUM_LENGTH
   end
