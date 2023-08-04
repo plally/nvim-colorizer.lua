@@ -144,9 +144,11 @@ function matcher.make(options)
     table.insert(matchers_prefix, "rgba")
     table.insert(matchers_prefix, "rgb")
     table.insert(matchers_prefix, "hsl")
+    table.insert(matchers_prefix, "Color")
   elseif enable_rgb then
     table.insert(matchers_prefix, "rgba")
     table.insert(matchers_prefix, "rgb")
+    table.insert(matchers_prefix, "Color")
   elseif enable_hsl then
     table.insert(matchers_prefix, "hsla")
     table.insert(matchers_prefix, "hsl")
